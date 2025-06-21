@@ -1,0 +1,18 @@
+include /etc/sway/config
+
+# Keyboard
+input * {
+	xkb_layout "jp"
+}
+# Touchpad/home/nyuuya/.local/.npm-global/bin:/home/nyuuya/.config/asdf/shims:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/nyuuya/.local/bin
+
+input type:touchpad {
+	natural_scroll enabled
+	tap enable
+	scroll_method two_finger
+	click_method button_areas
+}
+
+
+# IBus 
+exec_always fcitx5
