@@ -1,35 +1,38 @@
 # Input device
 input type:keyboard {
-        xkb_model "pc105"
-        xkb_layout "jp"
-        xkb_variant ,
+    xkb_model "pc105"
+    xkb_layout "jp"
+    xkb_variant ""
 }
 
 input type:touchpad {
-        natural_scroll enabled
-        tap enable
-        scroll_method two_finger
-        click_method button_areas
+    natural_scroll enabled
+    tap enable
+    scroll_method two_finger
+    click_method button_areas
 }
 
 output * bg /usr/share/backgrounds/default.jxl fill
 
-
 # IME
 exec_always fcitx5
 
+# Thunderbirdをワークスペース11で自動起動
+for_window [app_id="thunderbird"] move to workspace 10
+exec --no-startup-id thunderbird
 # env
 set $mod Mod4
 floating_modifier $mod
 set $term foot
 set $rofi_cmd rofi -terminal '$term'
 set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
+
 # Keyboard Mapping
-## Sway operation key
 set $left h
 set $down j
 set $up k
 set $right l
+
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
@@ -82,31 +85,30 @@ bindsym $mod+a focus parent
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
-# mode resize
+# Resize mode
 mode "resize" {
-        bindsym $left resize shrink width 10px
-                bindsym $down resize grow height 10px
-                bindsym $up resize shrink height 10px
-                bindsym $right resize grow width 10px
-                bindsym Left resize shrink width 10px
-                bindsym Down resize grow height 10px
-                bindsym Up resize shrink height 10px
-                bindsym Right resize grow width 10px
-                bindsym Return mode "default"
-                bindsym Escape mode "default"
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
 
-# mode "rofi" 
+# Rofi mode
 mode "rofi" {
-        bindsym h exec rofi -modi window -show window
-        bindsym j exec rofi -modi drun -show drun
-        bindsym k exec rofi -modi run -show run
-        bindsym l exec rofi -modi ssh -show ssh
-
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+    bindsym h exec rofi -modi window -show window , mode "default"
+    bindsym j exec rofi -modi drun -show drun , mode "default"
+    bindsym k exec rofi -modi run -show run , mode "default"
+    bindsym l exec rofi -modi ssh -show ssh , mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 bindsym $mod+d mode "rofi"
 
-include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
+ include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
