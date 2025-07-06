@@ -17,13 +17,14 @@ output * bg /usr/share/backgrounds/default.jxl fill
 # IME
 exec_always fcitx5
 
-# Thunderbirdをワークスペース11で自動起動
+# Thunderbirdをワークスペース10で自動起動
 for_window [app_id="thunderbird"] move to workspace 10
 exec --no-startup-id thunderbird
 # env
 set $mod Mod4
 floating_modifier $mod
 set $term foot
+set $code code
 set $rofi_cmd rofi -terminal '$term'
 set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
 
@@ -34,6 +35,7 @@ set $up k
 set $right l
 
 bindsym $mod+Return exec $term
+bindsym $mod+Shift+Return exec $code -n
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
